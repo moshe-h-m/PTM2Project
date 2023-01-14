@@ -1,5 +1,4 @@
 package test;
-
 import java.util.Set;
 
 public interface CacheSearcher extends TextSearcher{
