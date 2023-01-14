@@ -4,6 +4,7 @@ package test;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ForkJoinPool;
 
 public class MainTrain {
@@ -72,10 +73,79 @@ public class MainTrain {
 //		Result ParallelResult = ParallelCache.proxyIOSearch(wordToSearch, path);
 //		System.out.println( "printing results for ParallelCache test");
 //		MainTrain.printResolt(ParallelResult);
-		System.out.println("\n\n@@@@@@@@@@@@@@@@@@@@ check if inserted to set @@@@@@@@@@@@@@@@@@@@");
+		System.out.println("\n\n@@@@@@@@@@@@@@@@@@@@ check if insert0ed to set @@@@@@@@@@@@@@@@@@@@");
 		IOCache.getCachedResults();
 
+		System.out.println("\n\n@@@@@@@@@@@@@@@@@@@@ cache sercher LRU @@@@@@@@@@@@@@@@@@@@");
+		CacheSearcher cacheILRU = new CacheSearcher() {
+			@Override
+			public Set<Result> getCachedResults() {
+				return null;
+			}
+
+			@Override
+			public void clear() {
+
+			}
+
+			@Override
+			public void remove(Result r) {
+
+			}
+
+			@Override
+			public Result search(String text, String rootPath) {
+				return null;
+			}
+		};
+		LRUCacheSearcher LRUcache = new LRUCacheSearcher(cacheILRU, 3);
+		Result LRUresult = LRUcache.search(wordToSearch, path);
+		LRUcache.search("Jon", path);
+
+		LRUcache.search("mom", path);
+		LRUcache.search("Jon", path);
+		LRUcache.search("finish", path);
+
+		System.out.println( "printing results for LRUcache test");
+		System.out.println(LRUcache.getCachedResults());
+
+		System.out.println("\n\n@@@@@@@@@@@@@@@@@@@@ cache sercher LFU @@@@@@@@@@@@@@@@@@@@");
+		CacheSearcher cacheILFU = new CacheSearcher() {
+			@Override
+			public Set<Result> getCachedResults() {
+				return null;
+			}
+
+			@Override
+			public void clear() {
+
+			}
+
+			@Override
+			public void remove(Result r) {
+
+			}
+
+			@Override
+			public Result search(String text, String rootPath) {
+				return null;
+			}
+		};
+		LFUCacheSearcher LFUcache = new LFUCacheSearcher(cacheILFU, 3);
+		Result LFUresult = LFUcache.search(wordToSearch, path);
+		LFUcache.search("Jon", path);
+		LFUcache.search("mom", path);
+
+		LFUcache.search("Jon", path);
+		LFUcache.search("ded", path);
+		LFUcache.search("finish", path);
+
+		System.out.println( "printing results for LFUcache test");
+		System.out.println(LFUcache.getCachedResults());
+
+
 	}
+
 
 
 

@@ -105,6 +105,13 @@ public class ParallelIOSearcher  extends RecursiveTask<HashMap<String, String>> 
 
 
 
+
+
+
+
+
+
+
     @Override
     public String getQuery() {
         return this.word;
@@ -117,8 +124,13 @@ public class ParallelIOSearcher  extends RecursiveTask<HashMap<String, String>> 
 
     @Override
     public int getNumOfColumns() {
+
+
+
         return PnumColumans;
     }
+
+
 }
 
 

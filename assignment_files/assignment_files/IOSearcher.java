@@ -12,7 +12,7 @@ public class IOSearcher implements TextSearcher{
 
     String QueryString;
 
-    HashMap<String,String> myres = new HashMap<String,String>();
+    HashMap<String,String> IOmyres = new HashMap<String,String>();
 
     Result myResult = new Result() {
 
@@ -24,7 +24,7 @@ public class IOSearcher implements TextSearcher{
 
         @Override
         public HashMap<String, String> getAnswer() {
-            return myres;
+            return IOmyres;
         }
 
         @Override
@@ -35,9 +35,9 @@ public class IOSearcher implements TextSearcher{
     };
 
 
-    public IOSearcher() {
-
-    }
+//    public IOSearcher() {
+//
+//    }
 
 
     public File getDirectory() {
@@ -61,10 +61,10 @@ public class IOSearcher implements TextSearcher{
 
             int dot = file.toString().lastIndexOf(".");
             int slash = file.toString().lastIndexOf("\\");
-            System.out.println("the place of dot "+ dot +" the place of slash "+ slash);
+            System.out.println("the place of dot " + dot +" the place of slash "+ slash);
             if(dot < slash){
                 search(text, file.toString());
-            };
+            }
             if(file.toString().endsWith(".txt")){
                 searchSimple(text,file);
 
@@ -89,7 +89,7 @@ public class IOSearcher implements TextSearcher{
 
             while (scanner.hasNextLine()) {
                 String lineStr = scanner.nextLine();
-                if(lineStr.indexOf(text)!=(-1)){
+                if(lineStr.indexOf(text+" ")!=(-1)){
                     lines += lineStr;
                     found = true;
                     IOnumColumans += 1;
@@ -105,12 +105,12 @@ public class IOSearcher implements TextSearcher{
         }
         if(found){
             String finalLines = lines;
-            myres.put(String.valueOf(file),lines);
+            IOmyres.put(String.valueOf(file),lines);
 
         }
 
         return myResult;
     }
-    HashMap getAnswer() { return myres; }
+
 }
 
