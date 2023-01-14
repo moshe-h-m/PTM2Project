@@ -1,0 +1,113 @@
+title PTM2 ( תרחיש פתיחת קובץ הטקסט ) // by: Avior Abutbul, Yechiel Hisherik, Elee Temstet, Haron Brodbeker, Moshe Haim Makias 
+
+
+participant AppUser
+participant Operating System
+participant Cache
+participant Logger
+participant Directory
+
+participant file
+
+
+
+
+note over AppUser, Operating System:get **directory path** and **word** and search for all the line \n which contains the word in the txt files in the directory
+
+ AppUser->Operating System:
+
+alt cache management:if the cache is contain the result 
+
+Operating System->Cache: check if the result of this   \nword is already existing
+Operating System<--Cache: already exists 
+note over Operating System:return the Map \nwhich is exciting 
+
+else remove the oldest result LRU
+Operating System->Cache: check if the cache is full
+Operating System<--Cache:is full
+Operating System->Cache:clear the Last Recently Used 
+note over Cache:clearing...
+linear 
+Operating System<--Cache:send notification (observable)
+Cache-->Logger::send notification to Logger (observable)
+linear off
+else remove the most not trending result LFU
+Operating System->Cache: check if the cache is full
+Operating System<--Cache:is full
+Operating System->Cache:clear The fewest uses 
+note over Cache:clearing...
+Operating System<--Cache:send notification (observable)
+Cache-->Logger::send notification to Logger (observable)
+end
+
+par **In the event that a search was not performed for the word in the folder (without fork join pool)**
+#activate Directory
+loop for each sub path in the given directory
+
+Operating System->Directory: serch for text files
+#activate Directory
+alt for returns directory
+linear 
+
+Directory-->Operating System: get directory 
+note over Operating System:performed the search \n   loop in directory
+linear off
+else if this is a text file
+Operating System<--Directory: returns the path to the text file 
+
+
+
+
+Operating System->file: serch the word
+activate file
+file->file:for each instance of \n the word in the file
+Operating System<--file: returns the lines
+deactivate file
+Operating System->Cache :organized the lines in Map
+Operating System<--Cache:send notification (observable)
+Cache-->Logger::send notification to Logger (observable)
+
+
+else no text file
+Operating System<--Directory:this is not text file
+end
+end
+#deactivate Directory
+thread with fork join pool
+Operating System->Directory:serch for word in directory
+
+
+Directory-->Operating System: get the files
+note over Operating System: **fork the tasks for word searching**
+par open threads for each directory
+Operating System->file: if this is text files \nsearch for the word
+Operating System<--file: get the line's 
+#Operating System->Cache:insert the result
+thread fork new thread
+Operating System->file: if this is text files \nsearch for the word
+Operating System<--file: get the line's 
+#Operating System->Cache:insert the result
+thread fork new thread
+Operating System->file: if this is text files \nsearch for the word
+Operating System<--file: get the line's 
+#Operating System->Cache:insert the result 
+end
+note over Operating System: **join the tasks for word searching**
+Cache<--Operating System:get the result
+Operating System<--Cache:send notification (observable)
+Cache-->Logger::send notification to Logger (observable)
+
+
+
+
+
+
+end 
+
+
+Operating System->Cache:Bring the result of the requested word
+Operating System<--Cache:the result
+
+Operating System->Logger:Submit a Status
+Operating System<--Logger:get the Status 
+ AppUser<--Operating System: response the Map \n which contain the line with the word

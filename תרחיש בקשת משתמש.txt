@@ -1,0 +1,30 @@
+title  ( תרחיש בקשת משתמש )by: Avior , Yechiel , Elee , Haron, Moshe Haim  
+
+actor User
+participant Operating System
+
+
+
+
+
+
+User->Operating System:opening specific directory
+
+User <-- Operating System: directory what is required is open
+
+User ->(2)Operating System : search for text files in this directory and then searce specific word
+
+activate Operating System
+
+
+
+
+Operating System->Operating System: Loads the existing text files in the folder
+#User <--Operating System : The file is ready for review
+
+#User->Operating System: searce specific word and return  all the lines which contennt the word
+
+User<--Operating System: all the lines which conntains the word
+deactivate Operating System
+
+                                                    
