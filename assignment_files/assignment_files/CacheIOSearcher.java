@@ -22,7 +22,7 @@ public class CacheIOSearcher implements CacheSearcher {
         for (Result result : setOfResults){
             System.out.println("the query: "+result.getQuery());
             System.out.println("the result: "+result.getAnswer());
-            System.out.println("the num of rows: "+result.getNumOfColumns());
+            System.out.println("the num   of rows: "+result.getNumOfColumns());
         }
         return setOfResults;
     }
