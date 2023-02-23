@@ -142,7 +142,15 @@ public class MainTrain {
 
 		System.out.println( "printing results for LFUcache test");
 		System.out.println(LFUcache.getCachedResults());
+		
+		
+		CacheSearcher cacheSearcher = new CacheSearcher();
+		ObservableCacheSearcher observableCacheSearcher = new ObservableCacheSearcher(cacheSearcher);
 
+		Logger logger = Logger.getInstance("log.txt", observableCacheSearcher);
+
+
+		logger.close();
 
 	}
 
