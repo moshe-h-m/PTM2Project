@@ -51,7 +51,6 @@ public class IOSearcher implements TextSearcher{
     @Override
     public Result search(String text, String rootPath) {
         File dir = directory(rootPath);
-        //HashMap<String, String> myres = new HashMap<>();
         this.QueryString =text;
         if(dir.listFiles().length==0){
             System.out.println("the directory is empty");
@@ -81,7 +80,6 @@ public class IOSearcher implements TextSearcher{
     }
 
     public Result searchSimple(String text, File file) {
-        //HashMap<String, String> myres = new HashMap<>();
         boolean found = false;
         String lines = "";
         try {
@@ -93,7 +91,7 @@ public class IOSearcher implements TextSearcher{
                     lines += lineStr;
                     found = true;
                     IOnumColumans += 1;
-                    //System.out.println(lineStr);
+
                 }
 
             }

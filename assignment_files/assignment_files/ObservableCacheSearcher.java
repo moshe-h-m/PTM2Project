@@ -1,39 +1,37 @@
 package test;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 public class ObservableCacheSearcher  extends IOSearcher {
 
     private LinkedHashMap<String, String> ObservableResults;
 
+    List<String> changes = new ArrayList<>();
     private CacheSearcher cacheSearcher;
     private List<Observer> observers;
+    Set<Result> setOfResults = new HashSet<>();
 
-    public ObservableCacheSearcher(CacheSearcher cacheSearcher) {
-        this.cacheSearcher = cacheSearcher;
-        this.observers = new ArrayList<>();
-    }
+    int cacheSize;
 
-    public List<Result> search(String query) {
-        List<Result> results = cacheSearcher.search(query);
-        List<String> changes = new ArrayList<>();
-        for (Result result : results) {
-            if (result.isNew()) {
-                cacheSearcher.addResult(result);
-                changes.add(query + " added");
-            } else if (result.isRemoved()) {
-                cacheSearcher.removeResult(result);
-                changes.add(query + " removed");
+    public ObservableCacheSearcher(CacheSearcher cacheSearcher, int cacheSize) {
+        super();
+        this.ObservableResults = new LinkedHashMap<>(cacheSize,1.00f, true){
+            @Override
+            protected boolean removeEldestEntry(Map.Entry<String, String> eldest) {
+                changes.add(eldest.getKey() + " removed");
+                return size() > cacheSize;
             }
+        };
+
+        if (cacheSize <= 0) {
+            throw new IllegalArgumentException("Cache size must be positive");
         }
-        if (!changes.isEmpty()) {
-            String about = String.join("; ", changes);
-            notifyObservers(this, about);
-        }
-        return results;
+        this.cacheSize = cacheSize;
     }
+
+
+
+
 
     public void addObserver(Observer observer) {
         observers.add(observer);
@@ -49,6 +47,10 @@ public class ObservableCacheSearcher  extends IOSearcher {
         }
     }
 
+    public Collection<Object> search(String s) {
+        return null;
+    }
+
     public interface Observer {
         void update(ObservableCacheSearcher observable, String about);
     }
@@ -61,6 +63,7 @@ public class ObservableCacheSearcher  extends IOSearcher {
         ObservableResults.put(text, result.getAnswer().toString());
         //result = ObservableResults.get(text);
         setOfResults.add(result); // add to set of results
+        changes.add(text + " added");
         return result;
     }
 }

@@ -86,7 +86,6 @@ public class ParallelIOSearcher  extends RecursiveTask<HashMap<String, String>> 
                     lines += lineStr;
                     ifline = true;
                     PnumColumans += 1;
-                    //System.out.println(lineStr);
                 }
 
             }

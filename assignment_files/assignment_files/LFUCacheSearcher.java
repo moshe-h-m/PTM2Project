@@ -28,7 +28,6 @@ public class LFUCacheSearcher extends IOSearcher implements CacheSearcher{
         for (Map.Entry<String, String> stringResultEntry : LFUmyres.entrySet()) {
 
             System.out.println("result number: "+(++i)+"");
-            //setOfResults.add((Result) stringResultEntry.getValue().get(stringResultEntry.getKey()));
             System.out.println("the query: "+stringResultEntry.getKey());
             System.out.println("the answer: "+stringResultEntry.getValue().charAt(0));
 

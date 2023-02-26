@@ -3,9 +3,11 @@ package test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.sql.SQLOutput;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ForkJoinPool;
+import java.util.logging.Logger;
 
 public class MainTrain {
 
@@ -142,15 +144,59 @@ public class MainTrain {
 
 		System.out.println( "printing results for LFUcache test");
 		System.out.println(LFUcache.getCachedResults());
-		
-		
-		CacheSearcher cacheSearcher = new CacheSearcher();
-		ObservableCacheSearcher observableCacheSearcher = new ObservableCacheSearcher(cacheSearcher);
 
-		Logger logger = Logger.getInstance("log.txt", observableCacheSearcher);
-
-
-		logger.close();
+//		System.out.println("\n\n@@@@@@@@@@@@@@@@@@@@ cache sercher observer @@@@@@@@@@@@@@@@@@@@");
+//		CacheSearcher cacheIObserver = new CacheSearcher() {
+//			@Override
+//			public Set<Result> getCachedResults() {
+//				return null;
+//			}
+//
+//			@Override
+//			public void clear() {
+//
+//			}
+//
+//			@Override
+//			public void remove(Result r) {
+//
+//			}
+//
+//			@Override
+//			public Result search(String text, String rootPath) {
+//				return null;
+//			}
+//		};
+//		CacheSearcher cacheSearcher = null;
+//		ObservableCacheSearcher observableCacheSearcher = new ObservableCacheSearcher(cacheSearcher = new CacheSearcher() {
+//            @Override
+//            public Set<Result> getCachedResults() {
+//                return null;
+//            }
+//
+//            @Override
+//            public void clear() {
+//
+//            }
+//
+//            @Override
+//            public void remove(Result r) {
+//
+//            }
+//
+//            @Override
+//            public Result search(String text, String rootPath) {
+//                return null;
+//            }
+//        }, 3);
+//
+//		test.Logger logger = test.Logger.getInstance("log.txt", observableCacheSearcher);
+//		observableCacheSearcher.search("Jon", path);
+//		observableCacheSearcher.search("mom", path);
+//		observableCacheSearcher.search("Jon", path);
+//		observableCacheSearcher.search("ded", path);
+//
+//		logger.close();
 
 	}
 

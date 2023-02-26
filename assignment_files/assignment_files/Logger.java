@@ -1,3 +1,7 @@
+package test;
+
+import test.ObservableCacheSearcher;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;

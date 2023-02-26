@@ -26,15 +26,7 @@ public class CacheIOSearcher implements CacheSearcher {
         }
         return setOfResults;
     }
-//        Iterator data = setOfResults.iterator();
-//        while (data.hasNext()) {
-//            System.out.println( data.next());
-//            Result result = (Result) data.next();
-//            System.out.println("the query: "+result.getQuery());
-//            System.out.println("the answer: "+result.getAnswer());
-//      }
-//        return null;
-//    }
+
 
     @Override
     public void clear() {
@@ -132,12 +124,7 @@ public class CacheIOSearcher implements CacheSearcher {
         }
     }
 
-//    public void cleanIfFull(Set<Result> set, String rootPath) {
-//        Iterator data = set.iterator();
-//        while (data.hasNext()) {
-//
-//        }
-//    }
+
 
     public int addColumnToMap(String rootPath, int col){
         int oldNum =0;

@@ -29,7 +29,6 @@ public class LRUCacheSearcher extends IOSearcher implements CacheSearcher {
         for (Entry<String, String> stringResultEntry : LRUmyres.entrySet()) {
 
             System.out.println("result number: "+(++i)+"");
-            //setOfResults.add((Result) stringResultEntry.getValue().get(stringResultEntry.getKey()));
             System.out.println("the query: "+stringResultEntry.getKey());
             System.out.println("the answer: "+stringResultEntry.getValue());
 
@@ -54,8 +53,7 @@ public class LRUCacheSearcher extends IOSearcher implements CacheSearcher {
 
         result = super.search(text, rootPath);
         LRUmyres.put(text, result.getAnswer().toString());
-        //result = LRUmyres.get(text);
-        setOfResults.add(result); // add to set of results
+        setOfResults.add(result);
         return result;
     }
 }
